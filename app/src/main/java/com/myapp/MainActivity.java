@@ -1,6 +1,5 @@
 package com.myapp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -12,15 +11,29 @@ import com.myapp.view.IGirlView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements IGirlView {
+public class MainActivity extends BaseActivity<IGirlView,GirlPresenter<IGirlView>> implements IGirlView {
 
     private ListView listView;
+    GirlPresenter girlPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //activity只关心 1.接口功能数据去哪里拿 2.选择哪个表示层进行展示
         listView=findViewById(R.id.listView);
-        new GirlPresenter<>(this).fetch();
+        girlPresenter.fetch();
+    }
+
+    @Override
+    protected GirlPresenter<IGirlView> createPresenter() {
+        return new GirlPresenter<>();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        girlPresenter.detachView();
     }
 
     @Override
