@@ -11,6 +11,13 @@ import com.myapp.view.IGirlView;
 
 import java.util.List;
 
+/**
+ * mvp 比mvc的优点
+ * 1.Activity的职责更明确
+ * 2.代码结构更清晰，便于维护
+ * 3.方便单元测试
+ * 4.解决MVC中的内存泄漏
+ */
 public class MainActivity extends BaseActivity<IGirlView,GirlPresenter<IGirlView>> implements IGirlView {
 
     private ListView listView;
